@@ -1,0 +1,407 @@
+---
+import { Image } from "astro:assets";
+import medicalTeam from "../assets/images/medical-team-hero.png";
+---
+<section class="hero">
+  <div class="container hero-container">
+
+    <div class="hero-content">
+      <span class="hero-eyebrow">
+        Atención médica especializada
+      </span>
+
+      <h1>
+        Tu salud en manos de <span>especialistas.</span>
+      </h1>
+
+      <p class="hero-description">
+        Encuentra atención profesional y especializada en un mismo lugar.
+        Conoce a nuestros médicos y agenda tu consulta de manera sencilla.
+      </p>
+
+      <div class="hero-actions">
+        <a class="button button-primary" href="#contacto">
+          Agendar por WhatsApp
+        </a>
+
+        <a class="button button-secondary" href="#especialidades">
+          Ver especialidades
+        </a>
+      </div>
+
+      <div class="hero-features">
+        <div class="feature">
+          <span class="feature-icon">✓</span>
+          <span>Atención especializada</span>
+        </div>
+
+        <div class="feature">
+          <span class="feature-icon">✓</span>
+          <span>Trato personalizado</span>
+        </div>
+
+        <div class="feature">
+          <span class="feature-icon">✓</span>
+          <span>Agenda sencilla</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+        <div class="visual-placeholder">
+            <Image
+                src={medicalTeam}
+                alt="Equipo de profesionales médicos"
+                class="hero-image"
+            />
+        </div>
+
+    <div class="trust-card">
+        <div class="trust-icon">✓</div>
+
+        <div>
+        <strong>Atención profesional</strong>
+        <span>
+            Especialistas comprometidos con tu salud.
+        </span>
+        </div>
+    </div>
+    </div> 
+
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+
+    background:
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(18, 167, 160, 0.12),
+        transparent 35%
+      ),
+      linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #f5f9fb 100%
+      );
+  }
+
+  .hero-container {
+    min-height: 560px;
+
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+    gap: 4rem;
+
+    padding-block: 4rem;
+  }
+
+  /* Content */
+
+  .hero-content {
+    max-width: 640px;
+  }
+
+  .hero-eyebrow {
+    display: inline-block;
+
+    margin-bottom: 1rem;
+
+    color: var(--color-secondary);
+
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    max-width: 650px;
+
+    margin: 0;
+
+    color: var(--color-primary);
+
+    font-size: clamp(2.7rem, 5vw, 4.6rem);
+    font-weight: 750;
+    line-height: 1.04;
+    letter-spacing: -0.04em;
+  }
+
+  h1 span {
+    color: var(--color-secondary);
+  }
+
+  .hero-description {
+    max-width: 570px;
+
+    margin: 1.5rem 0 0;
+
+    color: var(--color-text-muted);
+
+    font-size: 1.08rem;
+    line-height: 1.75;
+  }
+
+  /* Buttons */
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    margin-top: 2rem;
+  }
+
+  .button {
+    min-height: 50px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding-inline: 1.5rem;
+
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+
+    font-size: 0.94rem;
+    font-weight: 650;
+
+    transition:
+      transform var(--transition-fast),
+      background var(--transition-fast),
+      border-color var(--transition-fast);
+  }
+
+  .button:hover {
+    transform: translateY(-2px);
+  }
+
+  .button-primary {
+    color: white;
+    background: var(--color-primary);
+  }
+
+  .button-primary:hover {
+    background: var(--color-primary-dark);
+  }
+
+  .button-secondary {
+    color: var(--color-primary);
+
+    border-color: var(--color-border);
+    background: white;
+  }
+
+  .button-secondary:hover {
+    border-color: var(--color-primary);
+  }
+
+  /* Features */
+
+  .hero-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.4rem;
+
+    margin-top: 2.5rem;
+  }
+
+  .feature {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    color: var(--color-text-muted);
+
+    font-size: 0.84rem;
+    font-weight: 500;
+  }
+
+  .feature-icon {
+    width: 22px;
+    height: 22px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    color: white;
+    background: var(--color-secondary);
+
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+
+  /* Visual */
+
+  .hero-visual {
+    position: relative;
+
+    min-height: 440px;
+  }
+
+  .visual-placeholder {
+  position: absolute;
+  inset: 0 0 0 2rem;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(13, 63, 122, 0.08);
+  border-radius: var(--radius-lg);
+
+  background:
+    radial-gradient(
+      circle at 70% 25%,
+      rgba(18, 167, 160, 0.14),
+      transparent 40%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.96),
+      rgba(18, 167, 160, 0.07)
+    );
+
+  box-shadow: var(--shadow-md);
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+  /* Floating trust card */
+
+  .trust-card {
+    position: absolute;
+    right: -1rem;
+    bottom: 2rem;
+
+    width: min(310px, 75%);
+
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+
+    padding: 1.25rem;
+
+    border-radius: var(--radius-md);
+
+    color: white;
+    background: var(--color-primary);
+
+    box-shadow: var(--shadow-md);
+  }
+
+  .trust-icon {
+    width: 38px;
+    height: 38px;
+
+    flex: 0 0 auto;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 50%;
+
+    font-weight: 700;
+  }
+
+  .trust-card div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .trust-card strong {
+    font-size: 0.9rem;
+  }
+
+  .trust-card span {
+    color: rgba(255, 255, 255, 0.8);
+
+    font-size: 0.75rem;
+    line-height: 1.45;
+  }
+
+  /* Tablet */
+
+  @media (max-width: 900px) {
+    .hero-container {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+
+      padding-block: 4rem;
+    }
+
+    .hero-content {
+      max-width: 700px;
+    }
+
+    .hero-visual {
+      min-height: 420px;
+    }
+
+    .visual-placeholder {
+      inset: 0;
+    }
+
+    .trust-card {
+      right: 1rem;
+    }
+  }
+
+  /* Mobile */
+
+  @media (max-width: 600px) {
+    .hero-container {
+      padding-block: 3.5rem;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 12vw, 3.4rem);
+    }
+
+    .hero-description {
+      font-size: 1rem;
+    }
+
+    .hero-actions {
+      flex-direction: column;
+    }
+
+    .button {
+      width: 100%;
+    }
+
+    .hero-features {
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .hero-visual {
+      min-height: 350px;
+    }
+
+    .trust-card {
+      right: 1rem;
+      bottom: 1rem;
+
+      width: calc(100% - 2rem);
+    }
+  }
+</style>

@@ -1,0 +1,140 @@
+---
+import SpecialtyCard from "./SpecialtyCard.astro";
+import { specialties } from "../data/specialties";
+---
+
+<section
+  id="especialidades"
+  class="specialties section"
+>
+  <div class="container">
+
+    <div class="section-header">
+      <div>
+        <span class="section-eyebrow">
+          Nuestros servicios
+        </span>
+
+        <h2>
+          Atención médica
+          <span>especializada</span>
+        </h2>
+      </div>
+
+      <p>
+        Conoce las especialidades disponibles y encuentra la atención
+        adecuada para tus necesidades.
+      </p>
+    </div>
+
+    <div class="specialties-grid">
+      {
+        specialties.map((specialty) => (
+          <SpecialtyCard specialty={specialty} />
+        ))
+      }
+    </div>
+
+    <div class="section-action">
+      <a href="/especialidades">
+        Ver todas las especialidades
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .specialties {
+    background: white;
+  }
+
+  .section-header {
+    display: grid;
+    grid-template-columns: 1fr 0.8fr;
+    align-items: end;
+    gap: 4rem;
+
+    margin-bottom: 2.5rem;
+  }
+
+  .section-eyebrow {
+    display: block;
+
+    margin-bottom: 0.5rem;
+
+    color: var(--color-secondary);
+
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    max-width: 520px;
+
+    margin: 0;
+
+    color: var(--color-primary);
+
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+  }
+
+  h2 span {
+    color: var(--color-secondary);
+  }
+
+  .section-header p {
+    max-width: 480px;
+
+    margin: 0;
+
+    color: var(--color-text-muted);
+
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .specialties-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .section-action {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 2.5rem;
+  }
+
+  .section-action a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    color: var(--color-primary);
+
+    font-size: 0.9rem;
+    font-weight: 650;
+  }
+
+  .section-action a:hover {
+    color: var(--color-secondary);
+  }
+
+  @media (max-width: 900px) {
+    .section-header {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .specialties-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
