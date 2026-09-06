@@ -1,0 +1,337 @@
+<section id="nosotros" class="about section">
+  <div class="container">
+
+    <div class="about-header">
+      <span class="section-eyebrow">
+        Nosotros
+      </span>
+
+      <h2>
+        Atención médica con enfoque{" "}<span>humano y profesional</span>
+      </h2>
+
+      <p>
+        En Pro Medical GDL buscamos facilitar el acceso a atención médica
+        especializada mediante una experiencia clara, organizada y cercana
+        para cada paciente.
+      </p>
+    </div>
+
+    <div class="mission-vision-grid">
+      <article class="about-card">
+        <div class="card-number" aria-hidden="true">
+          01
+        </div>
+
+        <div>
+          <span class="card-label">
+            Nuestra misión
+          </span>
+
+          <h3>
+            Conectar pacientes con atención especializada
+          </h3>
+
+          <p>
+            Brindar atención médica especializada de alta calidad mediante
+            una plataforma digital intuitiva, segura y eficiente, conectando
+            a pacientes con médicos especialistas y ofreciendo un
+            acompañamiento humano, ético y personalizado durante todo su
+            proceso de atención.
+          </p>
+        </div>
+      </article>
+
+      <article class="about-card">
+        <div class="card-number" aria-hidden="true">
+          02
+        </div>
+
+        <div>
+          <span class="card-label">
+            Nuestra visión
+          </span>
+
+          <h3>
+            Transformar la experiencia de atención médica
+          </h3>
+
+          <p>
+            Consolidarnos como una plataforma de referencia en la gestión y
+            programación de servicios médicos, transformando la experiencia
+            de atención especializada para hacerla más accesible, eficiente,
+            organizada y centrada en las necesidades de cada paciente.
+          </p>
+        </div>
+      </article>
+    </div>
+
+    <div class="values-section">
+      <div class="values-heading">
+        <span class="section-eyebrow">
+          Nuestros valores
+        </span>
+
+        <h3>
+          Principios que orientan nuestra atención
+        </h3>
+      </div>
+
+      <div class="values-grid">
+        <article class="value-card">
+          <div class="value-icon" aria-hidden="true">P</div>
+          <span>Profesionalismo</span>
+        </article>
+
+        <article class="value-card">
+          <div class="value-icon" aria-hidden="true">C</div>
+          <span>Confidencialidad</span>
+        </article>
+
+        <article class="value-card">
+          <div class="value-icon" aria-hidden="true">C</div>
+          <span>Calidez</span>
+        </article>
+
+        <article class="value-card">
+          <div class="value-icon" aria-hidden="true">E</div>
+          <span>Excelencia</span>
+        </article>
+
+        <article class="value-card">
+          <div class="value-icon" aria-hidden="true">E</div>
+          <span>Eficacia</span>
+        </article>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .about {
+    position: relative;
+    overflow: hidden;
+
+    background:
+      radial-gradient(
+        circle at 85% 15%,
+        rgba(18, 167, 160, 0.08),
+        transparent 30%
+      ),
+      var(--color-background-soft);
+  }
+
+  .about-header {
+    max-width: 760px;
+    margin-bottom: 3rem;
+  }
+
+  .section-eyebrow {
+    display: block;
+
+    margin-bottom: 0.6rem;
+
+    color: var(--color-secondary);
+
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .about-header h2 {
+    margin: 0;
+
+    color: var(--color-primary);
+
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+  }
+
+  .about-header h2 span {
+    color: var(--color-secondary);
+  }
+
+  .about-header p {
+    max-width: 700px;
+
+    margin: 1.25rem 0 0;
+
+    color: var(--color-text-muted);
+
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .mission-vision-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .about-card {
+    position: relative;
+
+    min-height: 330px;
+
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.4rem;
+
+    padding: 2rem;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+
+    background: white;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .card-number {
+    width: 52px;
+    height: 52px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    color: white;
+    background: var(--color-primary);
+
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .card-label {
+    display: block;
+
+    margin-bottom: 0.55rem;
+
+    color: var(--color-secondary);
+
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .about-card h3 {
+    margin: 0;
+
+    color: var(--color-primary);
+
+    font-size: 1.35rem;
+    line-height: 1.35;
+  }
+
+  .about-card p {
+    margin: 1rem 0 0;
+
+    color: var(--color-text-muted);
+
+    font-size: 0.94rem;
+    line-height: 1.75;
+  }
+
+  .values-section {
+    margin-top: 3.5rem;
+  }
+
+  .values-heading h3 {
+    margin: 0;
+
+    color: var(--color-primary);
+
+    font-size: 1.5rem;
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+
+    margin-top: 1.5rem;
+  }
+
+  .value-card {
+    min-height: 120px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+
+    padding: 1rem;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+
+    background: white;
+
+    text-align: center;
+
+    transition:
+      transform var(--transition-fast),
+      border-color var(--transition-fast),
+      box-shadow var(--transition-fast);
+  }
+
+  .value-card:hover {
+    transform: translateY(-3px);
+
+    border-color: rgba(18, 167, 160, 0.35);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .value-icon {
+    width: 42px;
+    height: 42px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    color: white;
+    background:
+      linear-gradient(
+        145deg,
+        var(--color-secondary),
+        #087f86
+      );
+
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  .value-card span {
+    color: var(--color-primary);
+
+    font-size: 0.9rem;
+    font-weight: 650;
+  }
+
+  @media (max-width: 900px) {
+    .mission-vision-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .values-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 520px) {
+    .about-card {
+      grid-template-columns: 1fr;
+    }
+
+    .values-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

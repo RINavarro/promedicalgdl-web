@@ -11,14 +11,13 @@ const navigation = [
 <header class="site-header">
   <div class="container header-container">
 
-    <a class="brand" href="/" aria-label="Ir al inicio">
-      <div class="brand-icon" aria-hidden="true">+</div>
-
-      <div class="brand-text">
-        <span class="brand-name">Grupo Médico</span>
-        <span class="brand-tagline">Atención especializada</span>
-      </div>
-    </a>
+   <a class="brand" href="/" aria-label="Promedical GDL - Ir al inicio">
+      <img
+        class="brand-logo"
+        src="/images/promedical_logo.png"
+        alt="Promedical GDL - Especialidades Médicas"
+      />
+    </a> 
 
     <nav class="desktop-nav" aria-label="Navegación principal">
       {
@@ -103,52 +102,22 @@ const navigation = [
   }
 
   /* Brand */
-
   .brand {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
 
     margin-right: auto;
+
+    flex-shrink: 0;
   }
 
-  .brand-icon {
-    width: 44px;
-    height: 44px;
-
-    display: grid;
-    place-items: center;
-
-    border: 2px solid var(--color-secondary);
-    border-radius: 50%;
-
-    color: var(--color-secondary);
-
-    font-size: 2rem;
-    font-weight: 700;
-    line-height: 1;
+  .brand-logo {
+    display: block;
+    width: 110px;
+    height: auto;
+    object-fit: contain;
   }
 
-  .brand-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.15;
-  }
-
-  .brand-name {
-    color: var(--color-primary);
-
-    font-size: 1.25rem;
-    font-weight: 750;
-  }
-
-  .brand-tagline {
-    margin-top: 0.2rem;
-
-    color: var(--color-text-muted);
-
-    font-size: 0.72rem;
-  }
 
   /* Desktop navigation */
 
@@ -304,19 +273,8 @@ const navigation = [
       min-height: 72px;
     }
 
-    .brand-tagline {
-      display: none;
-    }
-
-    .brand-icon {
-      width: 38px;
-      height: 38px;
-
-      font-size: 1.7rem;
-    }
-
-    .brand-name {
-      font-size: 1.05rem;
+    .brand-logo {
+      width: 95px;
     }
   }
 </style>
