@@ -14,12 +14,12 @@ export const specialties: Specialty[] = [
     icon: "✚",
   },
   {
-    name: "Traumatología y Ortopedia",
-    slug: "traumatologia-ortopedia",
+    name: "Trauma y Ortopedia",
+    slug: "trauma-ortopedia",
     shortDescription:
-      "Diagnóstico y tratamiento de lesiones, articulaciones, huesos y sistema musculoesquelético.",
+      "Atención especializada en lesiones musculoesqueléticas, fracturas, luxaciones y padecimientos ortopédicos.",
     icon: "◇",
-  },
+  }, 
   {
     name: "Urología",
     slug: "urologia",
