@@ -193,3 +193,90 @@ export const traumaOrthopedics: SpecialtyPageData = {
 
   ctaLabel: "Agendar valoración",
 };
+/* -------------------------------------------------------------------------- */
+/*                              CIRUGÍA GENERAL                               */
+/* -------------------------------------------------------------------------- */
+
+export const generalSurgery: SpecialtyPageData = {
+  slug: "cirugia-general",
+
+  title: "Cirugía General",
+
+  seoTitle: "Cirugía General | Pro Medical GDL",
+
+  seoDescription:
+    "Atención especializada en cirugía general, padecimientos abdominales, hernias, vesícula biliar y tejidos blandos en Pro Medical GDL.",
+
+  eyebrow: "Especialidad médica",
+
+  heroDescription:
+    "Atención especializada para padecimientos que pueden requerir manejo quirúrgico del abdomen, aparato digestivo, pared abdominal, piel y tejidos blandos, mediante valoración médica individual y selección del abordaje adecuado para cada paciente.",
+
+  careSectionTitle: "Atención quirúrgica con un enfoque",
+  careSectionHighlight: "individual y profesional",
+
+  careSectionDescription:
+    "Cirugía General comprende la valoración y tratamiento quirúrgico de distintos padecimientos abdominales, digestivos, de la pared abdominal, piel y tejidos blandos.",
+
+  careAreas: [
+    {
+      title: "Hernias inguinales",
+      description:
+        "Valoración y tratamiento quirúrgico de hernias localizadas en la región inguinal.",
+    },
+    {
+      title: "Hernias umbilicales",
+      description:
+        "Atención especializada de hernias localizadas alrededor de la región umbilical.",
+    },
+    {
+      title: "Hernias ventrales",
+      description:
+        "Valoración de hernias que afectan diferentes regiones de la pared abdominal.",
+    },
+    {
+      title: "Hernia hiatal",
+      description:
+        "Valoración quirúrgica de padecimientos relacionados con hernia hiatal y selección del tratamiento de acuerdo con cada caso.",
+    },
+    {
+      title: "Apéndice",
+      description:
+        "Valoración y tratamiento quirúrgico de padecimientos que pueden requerir apendicectomía.",
+    },
+    {
+      title: "Vesícula biliar",
+      description:
+        "Atención quirúrgica de padecimientos de la vesícula biliar que requieren valoración especializada.",
+    },
+    {
+      title: "Piel y tejidos blandos",
+      description:
+        "Valoración quirúrgica de lesiones de piel y tejidos blandos, incluyendo lipomas cuando está indicado.",
+    },
+    {
+      title: "Cirugía abierta y laparoscópica",
+      description:
+        "Selección del abordaje quirúrgico de acuerdo con el padecimiento, las características clínicas y la valoración del especialista.",
+    },
+  ],
+
+  infoEyebrow: "Atención quirúrgica",
+
+  infoTitle: "¿Qué atiende Cirugía",
+  infoHighlight: "General?",
+
+  infoParagraphs: [
+    "Cirugía General es una especialidad médica dedicada a la valoración y tratamiento quirúrgico de diversas enfermedades que afectan principalmente el aparato digestivo, abdomen, pared abdominal, piel y tejidos blandos.",
+    "El tratamiento se determina después de una valoración médica individual. Dependiendo del padecimiento y de las características de cada paciente, pueden considerarse diferentes alternativas y abordajes quirúrgicos.",
+  ],
+
+  ctaEyebrow: "Cirugía General",
+
+  ctaTitle: "Agenda una valoración con nuestro especialista",
+
+  ctaDescription:
+    "Recibe orientación médica especializada para determinar las alternativas de atención de acuerdo con tu caso.",
+
+  ctaLabel: "Agendar valoración",
+};
