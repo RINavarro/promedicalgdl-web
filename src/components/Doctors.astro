@@ -1,0 +1,297 @@
+---
+import { doctors } from "../data/doctors";
+import { contact } from "../data/contact";
+
+const getWhatsappHref = (doctorName: string) => {
+  const message =
+    `Hola, me gustaría solicitar información para agendar una valoración con ${doctorName}.`;
+
+  return `https://wa.me/${contact.primaryWhatsapp.value}?text=${encodeURIComponent(message)}`;
+};
+---
+
+<section id="medicos" class="doctors-section section">
+  <div class="container">
+
+    <div class="section-header">
+      <span class="eyebrow">
+        Nuestro equipo médico
+      </span>
+
+      <h2>
+        Conoce a nuestros <span>especialistas</span>
+      </h2>
+
+      <p>
+        Nuestro equipo está integrado por médicos especialistas en
+        distintas áreas, enfocados en brindar atención profesional
+        y una valoración individual para cada paciente.
+      </p>
+    </div>
+
+    <div class="doctors-grid">
+      {
+        doctors.map((doctor) => (
+          <article class="doctor-card">
+
+            <div class="doctor-image">
+              <img
+                src={doctor.image}
+                alt={doctor.name}
+                loading="lazy"
+              />
+            </div>
+
+            <div class="doctor-content">
+              <span class="specialty">
+                {doctor.specialty}
+              </span>
+
+              <h3>
+                {doctor.name}
+              </h3>
+
+              <div class="credentials">
+                {
+                  doctor.credentials.map((credential) => (
+                    <div class="credential">
+                      <span>{credential.label}</span>
+                      <strong>{credential.value}</strong>
+                    </div>
+                  ))
+                }
+              </div>
+
+              <div class="doctor-actions">
+                <a
+                  class="appointment-button"
+                  href={getWhatsappHref(doctor.name)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Agendar valoración
+                </a>
+              </div>
+            </div>
+
+          </article>
+        ))
+      }
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .doctors-section {
+    background: var(--color-background-soft);
+  }
+
+  .section-header {
+    max-width: 720px;
+
+    margin-bottom: 3rem;
+  }
+
+  .eyebrow {
+    display: block;
+
+    margin-bottom: 0.7rem;
+
+    color: var(--color-secondary);
+
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .section-header h2 {
+    margin: 0;
+
+    color: var(--color-primary);
+
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+  }
+
+  .section-header h2 span {
+    color: var(--color-secondary);
+  }
+
+  .section-header p {
+    max-width: 650px;
+
+    margin: 1rem 0 0;
+
+    color: var(--color-text-muted);
+
+    line-height: 1.75;
+  }
+
+  .doctors-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .doctor-card {
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+
+    background: white;
+
+    box-shadow: var(--shadow-sm);
+
+    transition:
+      transform var(--transition-fast),
+      box-shadow var(--transition-fast);
+  }
+
+  .doctor-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow: var(--shadow-md);
+  }
+
+  .doctor-image {
+    height: 360px;
+
+    overflow: hidden;
+
+    background: #eef3f6;
+  }
+
+  .doctor-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center 20%;
+  }
+
+  .doctor-content {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 1.5rem;
+  }
+
+  .specialty {
+    color: var(--color-secondary);
+
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .doctor-content h3 {
+    margin: 0.5rem 0 0;
+
+    color: var(--color-primary);
+
+    font-size: 1.25rem;
+    line-height: 1.3;
+  }
+
+  .credentials {
+    display: grid;
+    gap: 0.55rem;
+
+    margin-top: 1.3rem;
+    padding-top: 1.2rem;
+
+    border-top: 1px solid var(--color-border);
+  }
+
+  .credential {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .credential span {
+    color: var(--color-text-muted);
+
+    font-size: 0.74rem;
+    font-weight: 600;
+  }
+
+  .credential strong {
+    color: var(--color-text);
+
+    font-size: 0.8rem;
+    font-weight: 650;
+
+    text-align: right;
+  }
+
+  .doctor-actions {
+    margin-top: auto;
+    padding-top: 1.5rem;
+  }
+
+  .appointment-button {
+    min-height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+
+    padding-inline: 1.25rem;
+
+    border-radius: var(--radius-sm);
+
+    color: white;
+    background: var(--color-primary);
+
+    font-size: 0.86rem;
+    font-weight: 700;
+
+    transition:
+      background var(--transition-fast),
+      transform var(--transition-fast);
+  }
+
+  .appointment-button:hover {
+    background: var(--color-primary-dark);
+
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 1000px) {
+    .doctors-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 680px) {
+    .doctors-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .doctor-image {
+      height: 420px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .doctor-image {
+      height: 350px;
+    }
+  }
+</style>

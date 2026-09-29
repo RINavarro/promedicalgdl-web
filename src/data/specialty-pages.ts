@@ -3,11 +3,21 @@ export interface SpecialtyCareArea {
   description: string;
 }
 
+export interface SpecialtyDetailCard {
+  title: string;
+  summary: string;
+  description: string;
+  items?: string[];
+  whatsappContext?: string;
+  icon?: string;
+}
+
 export interface SpecialtyPageData {
   slug: string;
   title: string;
   seoTitle: string;
   seoDescription: string;
+  doctorSlugs?: string[];
 
   eyebrow: string;
   heroDescription: string;
@@ -26,6 +36,8 @@ export interface SpecialtyPageData {
   ctaTitle: string;
   ctaDescription: string;
   ctaLabel: string;
+
+  cards?: SpecialtyDetailCard[];
 }
 
 /* -------------------------------------------------------------------------- */
@@ -38,6 +50,8 @@ export const urology: SpecialtyPageData = {
   title: "Urología",
 
   seoTitle: "Urología | Pro Medical GDL",
+
+  doctorSlugs: ["carlos-alejandro-gonzalez-zepeda"],
 
   seoDescription:
     "Atención especializada en urología, salud urinaria y salud urológica masculina en Pro Medical GDL.",
@@ -86,6 +100,98 @@ export const urology: SpecialtyPageData = {
     },
   ],
 
+    cards: [
+    {
+      title: "Próstata",
+      icon: "prostate",
+      summary:
+        "Procedimientos para padecimientos prostáticos y obstrucción urinaria.",
+      description:
+        "La atención urológica de la próstata incluye diferentes alternativas quirúrgicas cuya indicación depende del padecimiento, sus características y la valoración individual del paciente.",
+      items: [
+        "Resección transuretral de próstata (RTUP)",
+        "HoLEP — enucleación prostática con láser",
+        "Prostatectomía radical",
+      ],
+      whatsappContext: "una valoración relacionada con la próstata",
+    },
+
+    {
+      title: "Cálculos urinarios",
+      icon: "kidney-stone",
+      summary:
+        "Alternativas de tratamiento para cálculos renales y ureterales.",
+      description:
+        "Los cálculos del riñón o del uréter pueden requerir diferentes procedimientos según su tamaño, localización y características. La valoración urológica permite determinar la alternativa adecuada para cada caso.",
+      items: [
+        "Ureteroscopia con litotricia láser",
+        "Litotricia extracorpórea por ondas de choque (LEOC)",
+        "Nefrolitotomía percutánea (NLPC)",
+        "Colocación de catéter JJ",
+      ],
+      whatsappContext: "cálculos urinarios",
+    },
+
+    {
+      title: "Riñón y vejiga",
+      icon: "urinary-system",
+      summary:
+        "Valoración quirúrgica de padecimientos que afectan riñón y vejiga.",
+      description:
+        "Algunos padecimientos del riñón y la vejiga pueden requerir tratamiento quirúrgico. La extensión y tipo de procedimiento se determinan de acuerdo con el diagnóstico y las características particulares de cada paciente.",
+      items: [
+        "Nefrectomía parcial",
+        "Nefrectomía radical",
+        "Cistectomía parcial",
+        "Cistectomía radical",
+      ],
+      whatsappContext: "una valoración relacionada con riñón o vejiga",
+    },
+
+    {
+      title: "Salud reproductiva masculina",
+      icon: "male-reproductive",
+      summary:
+        "Procedimientos relacionados con anticoncepción y salud reproductiva masculina.",
+      description:
+        "La urología también comprende procedimientos relacionados con la salud reproductiva masculina. Cada alternativa requiere una valoración previa y orientación médica sobre sus indicaciones e implicaciones.",
+      items: [
+        "Vasectomía",
+        "Varicocelectomía",
+      ],
+      whatsappContext: "salud reproductiva masculina",
+    },
+
+    {
+      title: "Testículo y escroto",
+      icon: "testicle",
+      summary:
+        "Tratamiento quirúrgico de padecimientos testiculares y escrotales.",
+      description:
+        "Existen diferentes padecimientos del testículo y del escroto que pueden requerir manejo quirúrgico. El procedimiento se determina después de una valoración urológica individual.",
+      items: [
+        "Varicocelectomía",
+        "Hidrocelectomía",
+        "Orquiectomía cuando está indicada",
+      ],
+      whatsappContext: "una valoración testicular o escrotal",
+    },
+
+    {
+      title: "Pene y prepucio",
+      icon: "penis",
+      summary:
+        "Valoración y procedimientos quirúrgicos de pene y prepucio.",
+      description:
+        "La atención urológica incluye procedimientos para determinadas condiciones del pene y prepucio. La indicación y técnica se establecen de acuerdo con la edad, condición clínica y valoración del especialista.",
+      items: [
+        "Circuncisión",
+        "Cirugía de hipospadias",
+      ],
+      whatsappContext: "una valoración relacionada con pene o prepucio",
+    },
+  ],
+
   infoEyebrow: "Atención profesional",
 
   infoTitle: "¿Qué atiende la",
@@ -115,11 +221,13 @@ export const traumaOrthopedics: SpecialtyPageData = {
 
   title: "Trauma y Ortopedia",
 
+  doctorSlugs: ["jose-miguel-huerta"],
+
   seoTitle: "Trauma y Ortopedia | Pro Medical GDL",
 
   seoDescription:
     "Atención especializada en trauma, ortopedia, fracturas, lesiones deportivas y padecimientos musculoesqueléticos en Pro Medical GDL.",
-
+  
   eyebrow: "Especialidad médica",
 
   heroDescription:
@@ -174,6 +282,83 @@ export const traumaOrthopedics: SpecialtyPageData = {
     },
   ],
 
+    cards: [
+    {
+      title: "Reemplazo articular",
+      icon: "joint-replacement",
+      summary:
+        "Valoración y tratamiento quirúrgico de articulaciones dañadas.",
+      description:
+        "El reemplazo articular es un procedimiento quirúrgico en el que una articulación dañada se sustituye parcial o totalmente por componentes artificiales llamados prótesis, con objetivos como disminuir el dolor y favorecer la función y movilidad.",
+      items: [
+        "Reemplazo de cadera",
+        "Reemplazo de rodilla",
+        "Reemplazo de hombro",
+      ],
+      whatsappContext: "reemplazo articular",
+    },
+
+    {
+      title: "Lesiones deportivas",
+      icon: "sports-injury",
+      summary:
+        "Atención de lesiones relacionadas con la actividad física y deportiva.",
+      description:
+        "Las lesiones deportivas pueden afectar músculos, tendones, ligamentos, huesos, cartílagos o articulaciones. Su valoración permite determinar el tratamiento adecuado y orientar la recuperación funcional y el retorno a la actividad deportiva.",
+      items: [
+        "Esguinces",
+        "Luxaciones",
+        "Fracturas",
+        "Tendinitis",
+        "Lesiones musculares",
+        "Lesiones de menisco",
+        "Lesiones de ligamentos",
+      ],
+      whatsappContext: "una lesión deportiva",
+    },
+
+    {
+      title: "Fracturas",
+      icon: "fracture",
+      summary:
+        "Valoración especializada de fracturas y lesiones óseas.",
+      description:
+        "Una fractura es la pérdida de continuidad o ruptura parcial o completa de un hueso. Puede producirse por traumatismos, sobrecarga repetitiva o condiciones que debilitan el tejido óseo.",
+      items: [
+        "Fractura de muñeca",
+        "Fractura de clavícula",
+        "Fractura de tobillo",
+        "Fractura de cadera",
+        "Fractura de húmero",
+        "Fractura de tibia y peroné",
+        "Fractura de costillas",
+        "Fractura de vértebras",
+      ],
+      whatsappContext: "una fractura",
+    },
+
+    {
+      title: "Trauma por accidentes",
+      icon: "trauma",
+      summary:
+        "Atención de lesiones musculoesqueléticas ocasionadas por accidentes.",
+      description:
+        "Los accidentes automovilísticos, de motocicleta, laborales, deportivos y las caídas pueden ocasionar diferentes tipos de lesiones que requieren valoración por Traumatología y Ortopedia.",
+      items: [
+        "Fracturas",
+        "Luxaciones",
+        "Esguinces",
+        "Lesiones musculares y tendinosas",
+        "Lesiones de ligamentos",
+        "Lesiones de columna",
+        "Traumatismos de pelvis",
+        "Trauma de mano",
+        "Politraumatismo",
+      ],
+      whatsappContext: "una lesión ocasionada por un accidente",
+    },
+  ],
+
   infoEyebrow: "Atención especializada",
 
   infoTitle: "¿Qué atiende Trauma y",
@@ -203,6 +388,8 @@ export const generalSurgery: SpecialtyPageData = {
   title: "Cirugía General",
 
   seoTitle: "Cirugía General | Pro Medical GDL",
+
+  doctorSlugs: ["ricardo-sevilla-vizcaino"],
 
   seoDescription:
     "Atención especializada en cirugía general, padecimientos abdominales, hernias, vesícula biliar y tejidos blandos en Pro Medical GDL.",
@@ -258,6 +445,119 @@ export const generalSurgery: SpecialtyPageData = {
       title: "Cirugía abierta y laparoscópica",
       description:
         "Selección del abordaje quirúrgico de acuerdo con el padecimiento, las características clínicas y la valoración del especialista.",
+    },
+  ],
+
+    cards: [
+    {
+      title: "Hernia inguinal",
+      icon: "abdominal-wall",
+      summary:
+        "Valoración y tratamiento quirúrgico de hernias localizadas en la región inguinal.",
+      description:
+        "La reparación de una hernia inguinal busca reposicionar el tejido herniado y reforzar la pared abdominal. Dependiendo de las características del paciente y del caso, el especialista puede considerar un abordaje abierto o laparoscópico.",
+      items: [
+        "Cirugía abierta",
+        "Cirugía laparoscópica",
+        "Reparación de la pared abdominal",
+        "Uso de malla cuando está indicado",
+      ],
+      whatsappContext: "una hernia inguinal",
+    },
+
+    {
+      title: "Hernia umbilical",
+      icon: "abdominal-wall",
+      summary:
+        "Tratamiento quirúrgico de hernias localizadas alrededor del ombligo.",
+      description:
+        "La cirugía de hernia umbilical permite corregir el defecto de la pared abdominal localizado alrededor del ombligo. El procedimiento puede realizarse mediante cirugía abierta o laparoscópica, de acuerdo con la valoración del especialista.",
+      items: [
+        "Cirugía abierta",
+        "Cirugía laparoscópica",
+        "Reparación de la pared abdominal",
+        "Uso de malla cuando está indicado",
+      ],
+      whatsappContext: "una hernia umbilical",
+    },
+
+    {
+      title: "Hernia ventral",
+      icon: "abdominal-wall",
+      summary:
+        "Valoración y reparación quirúrgica de hernias de la pared abdominal.",
+      description:
+        "Las hernias ventrales aparecen en diferentes zonas de la pared abdominal. Su tratamiento quirúrgico busca reposicionar el tejido herniado y reforzar la zona debilitada, mediante un abordaje seleccionado de acuerdo con cada caso.",
+      items: [
+        "Cirugía abierta",
+        "Cirugía laparoscópica",
+        "Reparación de la pared abdominal",
+        "Uso de malla cuando está indicado",
+      ],
+      whatsappContext: "una hernia ventral",
+    },
+
+    {
+      title: "Hernia hiatal",
+      icon: "stomach",
+      summary:
+        "Valoración quirúrgica de hernia hiatal y sus alternativas de tratamiento.",
+      description:
+        "La hernia hiatal ocurre cuando una parte del estómago se desplaza hacia el tórax a través del diafragma. En los casos en que está indicado tratamiento quirúrgico, puede considerarse un abordaje laparoscópico para reposicionar el estómago y reparar la zona afectada.",
+      items: [
+        "Valoración especializada",
+        "Cirugía laparoscópica cuando está indicada",
+        "Reposicionamiento del estómago",
+        "Reparación de la zona afectada",
+      ],
+      whatsappContext: "una hernia hiatal",
+    },
+
+    {
+      title: "Apendicectomía",
+      icon: "appendix",
+      summary:
+        "Tratamiento quirúrgico para la extracción del apéndice cuando está indicado.",
+      description:
+        "La apendicectomía consiste en retirar el apéndice cuando existe una condición que requiere tratamiento quirúrgico, como la apendicitis. Dependiendo de la valoración médica, puede realizarse mediante cirugía abierta o laparoscópica.",
+      items: [
+        "Cirugía abierta",
+        "Cirugía laparoscópica",
+        "Atención de apendicitis",
+        "Valoración quirúrgica individual",
+      ],
+      whatsappContext: "una valoración relacionada con el apéndice",
+    },
+
+    {
+      title: "Vesícula biliar",
+      icon: "gallbladder",
+      summary:
+        "Valoración y tratamiento quirúrgico de padecimientos de la vesícula biliar.",
+      description:
+        "La colecistectomía es el procedimiento mediante el cual se retira la vesícula biliar cuando existe una indicación médica, frecuentemente relacionada con cálculos biliares. El abordaje laparoscópico utiliza pequeñas incisiones, una cámara e instrumentos especializados.",
+      items: [
+        "Colecistectomía laparoscópica",
+        "Cálculos biliares",
+        "Abordaje mínimamente invasivo",
+        "Valoración quirúrgica individual",
+      ],
+      whatsappContext: "un problema relacionado con la vesícula biliar",
+    },
+
+    {
+      title: "Lipomas",
+      icon: "lipoma",
+      summary:
+        "Valoración y extirpación quirúrgica de lesiones compatibles con lipomas.",
+      description:
+        "Un lipoma es una acumulación de tejido graso debajo de la piel. Cuando existe indicación médica, puede retirarse mediante un procedimiento quirúrgico. La valoración previa permite determinar las características de la lesión y el tratamiento adecuado.",
+      items: [
+        "Valoración de la lesión",
+        "Extirpación quirúrgica",
+        "Piel y tejidos blandos",
+      ],
+      whatsappContext: "la valoración de un lipoma",
     },
   ],
 

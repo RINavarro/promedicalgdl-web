@@ -1,6 +1,10 @@
 ---
 import MainLayout from "./MainLayout.astro";
 import Header from "../components/Header.astro";
+import SpecialtyDetailCards from "../components/SpecialtyDetailCards.astro";
+import { contact } from "../data/contact";
+import DoctorCard from "../components/DoctorCard.astro";
+import { getDoctorBySlug } from "../data/doctors";
 
 import type { SpecialtyPageData } from "../data/specialty-pages";
 
@@ -9,6 +13,21 @@ interface Props {
 }
 
 const { specialty } = Astro.props;
+
+const specialtyDoctors =
+  specialty.doctorSlugs
+    ?.map((slug) => getDoctorBySlug(slug))
+    .filter((doctor) => doctor !== undefined) ?? [];
+
+const featuredDoctor = specialtyDoctors[0];
+
+const whatsappNumber = contact.primaryWhatsapp.value;
+
+const whatsappMessage =
+  `Hola, me gustaría solicitar información para agendar una valoración de ${specialty.title}.`;
+
+const whatsappHref =
+  `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 ---
 
 <MainLayout
@@ -18,6 +37,8 @@ const { specialty } = Astro.props;
   <Header />
 
   <main>
+
+    <!-- HERO -->
     <section class="specialty-hero">
       <div class="container hero-grid">
 
@@ -26,7 +47,9 @@ const { specialty } = Astro.props;
             {specialty.eyebrow}
           </span>
 
-          <h1>{specialty.title}</h1>
+          <h1>
+            {specialty.title}
+          </h1>
 
           <p class="hero-lead">
             {specialty.heroDescription}
@@ -35,7 +58,9 @@ const { specialty } = Astro.props;
           <div class="hero-actions">
             <a
               class="primary-button"
-              href="/#contacto"
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
             >
               {specialty.ctaLabel}
             </a>
@@ -49,27 +74,28 @@ const { specialty } = Astro.props;
           </div>
         </div>
 
-        <div class="hero-visual" aria-hidden="true">
-          <div class="visual-symbol">
-            <span>
-              {specialty.title.charAt(0)}
-            </span>
-          </div>
+        <div class="hero-visual">
+          {
+            featuredDoctor ? (
+              <DoctorCard doctor={featuredDoctor} />
+            ) : (
+              <div class="visual-copy">
+                <strong>
+                  Atención especializada
+                </strong>
 
-          <div class="visual-copy">
-            <strong>
-              Atención especializada
-            </strong>
-
-            <span>
-              Valoración individual y acompañamiento profesional.
-            </span>
-          </div>
+                <span>
+                  Valoración individual y acompañamiento profesional.
+                </span>
+              </div>
+            )
+          }
         </div>
 
       </div>
     </section>
 
+    <!-- ÁREAS DE ATENCIÓN -->
     <section
       id="areas-atencion"
       class="care-section section"
@@ -93,27 +119,39 @@ const { specialty } = Astro.props;
           </p>
         </div>
 
-        <div class="care-grid">
-          {
-            specialty.careAreas.map((area, index) => (
-              <article class="care-card">
-                <span class="care-number">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
+        {
+          specialty.cards && specialty.cards.length > 0 ? (
+            <SpecialtyDetailCards
+              cards={specialty.cards}
+              specialtyTitle={specialty.title}
+            />
+          ) : (
+            <div class="care-grid">
+              {
+                specialty.careAreas.map((area, index) => (
+                  <article class="care-card">
+                    <span class="care-number">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
 
-                <h3>{area.title}</h3>
+                    <h3>
+                      {area.title}
+                    </h3>
 
-                <p>
-                  {area.description}
-                </p>
-              </article>
-            ))
-          }
-        </div>
+                    <p>
+                      {area.description}
+                    </p>
+                  </article>
+                ))
+              }
+            </div>
+          )
+        }
 
       </div>
     </section>
 
+    <!-- INFORMACIÓN -->
     <section class="info-section section">
       <div class="container info-grid">
 
@@ -131,25 +169,32 @@ const { specialty } = Astro.props;
         </div>
 
         <div class="info-content">
+
           {
             specialty.infoParagraphs.map((paragraph) => (
-              <p>{paragraph}</p>
+              <p>
+                {paragraph}
+              </p>
             ))
           }
 
           <div class="info-note">
-            <span aria-hidden="true">i</span>
+            <span aria-hidden="true">
+              i
+            </span>
 
             <p>
               La información presentada en este sitio es de carácter
               informativo y no sustituye una valoración médica.
             </p>
           </div>
+
         </div>
 
       </div>
     </section>
 
+    <!-- CTA -->
     <section class="cta-section">
       <div class="container cta-container">
 
@@ -169,48 +214,69 @@ const { specialty } = Astro.props;
 
         <a
           class="cta-button"
-          href="/#contacto"
+          href={whatsappHref}
+          target="_blank"
+          rel="noopener noreferrer"
         >
           {specialty.ctaLabel}
         </a>
 
       </div>
     </section>
+
   </main>
 </MainLayout>
 
 <style>
+  /* =========================================================
+     Shared
+     ========================================================= */
+
   .eyebrow {
     display: block;
+
     margin-bottom: 0.7rem;
+
     color: var(--color-secondary);
+
     font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
+
+  /* =========================================================
+     Hero
+     ========================================================= */
+
   .specialty-hero {
+    position: relative;
     overflow: hidden;
+
     background:
-      radial-gradient(
-        circle at 82% 18%,
-        rgba(18, 167, 160, 0.14),
-        transparent 34%
-      ),
       linear-gradient(
-        135deg,
-        #ffffff 0%,
-        #f5f9fb 100%
-      );
+        90deg,
+        rgba(255, 255, 255, 0.98) 0%,
+        rgba(255, 255, 255, 0.94) 32%,
+        rgba(245, 249, 251, 0.72) 55%,
+        rgba(13, 63, 122, 0.18) 100%
+      ),
+      url("/images/background.jpeg");
+
+    background-size: cover;
+    background-position: 60% center;
+    background-repeat: no-repeat;
   }
 
   .hero-grid {
     min-height: 520px;
+
     display: grid;
     grid-template-columns: 1fr 0.8fr;
     align-items: center;
     gap: 5rem;
+
     padding-block: 4.5rem;
   }
 
@@ -220,7 +286,9 @@ const { specialty } = Astro.props;
 
   .hero-content h1 {
     margin: 0;
+
     color: var(--color-primary);
+
     font-size: clamp(3rem, 6vw, 5rem);
     line-height: 1;
     letter-spacing: -0.04em;
@@ -228,8 +296,11 @@ const { specialty } = Astro.props;
 
   .hero-lead {
     max-width: 620px;
+
     margin: 1.5rem 0 0;
+
     color: var(--color-text-muted);
+
     font-size: 1.08rem;
     line-height: 1.8;
   }
@@ -238,19 +309,25 @@ const { specialty } = Astro.props;
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+
     margin-top: 2rem;
   }
 
   .primary-button,
   .secondary-button {
     min-height: 50px;
+
     display: inline-flex;
     align-items: center;
     justify-content: center;
+
     padding-inline: 1.5rem;
+
     border-radius: var(--radius-sm);
+
     font-size: 0.92rem;
     font-weight: 650;
+
     transition:
       transform var(--transition-fast),
       background var(--transition-fast),
@@ -269,6 +346,7 @@ const { specialty } = Astro.props;
 
   .secondary-button {
     color: var(--color-primary);
+
     border: 1px solid var(--color-border);
     background: white;
   }
@@ -278,57 +356,57 @@ const { specialty } = Astro.props;
     transform: translateY(-2px);
   }
 
-  .hero-visual {
-    position: relative;
-    min-height: 350px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    border: 1px solid rgba(13, 63, 122, 0.08);
-    border-radius: var(--radius-lg);
-    background:
-      radial-gradient(
-        circle at center,
-        rgba(18, 167, 160, 0.12),
-        transparent 58%
-      ),
-      rgba(255, 255, 255, 0.78);
-    box-shadow: var(--shadow-md);
-  }
 
-  .visual-symbol {
-    width: 118px;
-    height: 118px;
-    display: grid;
-    place-items: center;
-    border: 2px solid var(--color-secondary);
-    border-radius: 50%;
-    color: var(--color-secondary);
-    font-size: 2.8rem;
-    font-weight: 700;
+  /* =========================================================
+     Hero visual
+     ========================================================= */
+
+  .hero-visual {
+    min-height: 350px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
   }
 
   .visual-copy {
-    max-width: 300px;
+    max-width: 290px;
+
     display: flex;
     flex-direction: column;
     gap: 0.45rem;
-    margin-top: 1.5rem;
-    text-align: center;
+
+    padding: 1.25rem 1.4rem;
+
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: var(--radius-md);
+
+    background: rgba(255, 255, 255, 0.9);
+
+    backdrop-filter: blur(10px);
+
+    box-shadow: var(--shadow-md);
+
+    text-align: left;
   }
 
   .visual-copy strong {
     color: var(--color-primary);
+
     font-size: 1rem;
   }
 
   .visual-copy span {
     color: var(--color-text-muted);
+
     font-size: 0.85rem;
     line-height: 1.5;
   }
+
+
+  /* =========================================================
+     Care
+     ========================================================= */
 
   .care-section {
     background: white;
@@ -336,13 +414,16 @@ const { specialty } = Astro.props;
 
   .section-header {
     max-width: 760px;
+
     margin-bottom: 2.8rem;
   }
 
   .section-header h2,
   .info-heading h2 {
     margin: 0;
+
     color: var(--color-primary);
+
     font-size: clamp(2rem, 4vw, 3rem);
     line-height: 1.14;
     letter-spacing: -0.03em;
@@ -355,8 +436,11 @@ const { specialty } = Astro.props;
 
   .section-header > p {
     max-width: 680px;
+
     margin: 1.15rem 0 0;
+
     color: var(--color-text-muted);
+
     line-height: 1.75;
   }
 
@@ -368,10 +452,14 @@ const { specialty } = Astro.props;
 
   .care-card {
     min-height: 230px;
+
     padding: 1.7rem;
+
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
+
     background: white;
+
     transition:
       transform var(--transition-fast),
       box-shadow var(--transition-fast),
@@ -380,14 +468,18 @@ const { specialty } = Astro.props;
 
   .care-card:hover {
     transform: translateY(-4px);
+
     border-color: rgba(18, 167, 160, 0.35);
     box-shadow: var(--shadow-md);
   }
 
   .care-number {
     display: block;
+
     margin-bottom: 1.3rem;
+
     color: var(--color-secondary);
+
     font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.06em;
@@ -395,16 +487,25 @@ const { specialty } = Astro.props;
 
   .care-card h3 {
     margin: 0;
+
     color: var(--color-primary);
+
     font-size: 1.08rem;
   }
 
   .care-card p {
     margin: 0.8rem 0 0;
+
     color: var(--color-text-muted);
+
     font-size: 0.9rem;
     line-height: 1.7;
   }
+
+
+  /* =========================================================
+     Información
+     ========================================================= */
 
   .info-section {
     background: var(--color-background-soft);
@@ -422,7 +523,9 @@ const { specialty } = Astro.props;
 
   .info-content > p {
     margin: 0 0 1.2rem;
+
     color: var(--color-text-muted);
+
     line-height: 1.8;
   }
 
@@ -430,35 +533,51 @@ const { specialty } = Astro.props;
     display: flex;
     align-items: flex-start;
     gap: 1rem;
+
     margin-top: 2rem;
     padding: 1.25rem;
+
     border: 1px solid rgba(18, 167, 160, 0.25);
     border-radius: var(--radius-md);
+
     background: rgba(255, 255, 255, 0.75);
   }
 
   .info-note > span {
     width: 32px;
     height: 32px;
+
     flex: 0 0 auto;
+
     display: grid;
     place-items: center;
+
     border-radius: 50%;
+
     color: white;
     background: var(--color-secondary);
+
     font-size: 0.8rem;
     font-weight: 700;
   }
 
   .info-note p {
     margin: 0;
+
     color: var(--color-text-muted);
+
     font-size: 0.84rem;
     line-height: 1.6;
   }
 
+
+  /* =========================================================
+     CTA
+     ========================================================= */
+
   .cta-section {
     padding-block: 4rem;
+
     background: var(--color-primary);
   }
 
@@ -475,8 +594,11 @@ const { specialty } = Astro.props;
 
   .cta-eyebrow {
     display: block;
+
     margin-bottom: 0.5rem;
+
     color: rgba(255, 255, 255, 0.65);
+
     font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.06em;
@@ -485,29 +607,40 @@ const { specialty } = Astro.props;
 
   .cta-container h2 {
     margin: 0;
+
     color: white;
+
     font-size: clamp(1.8rem, 3.5vw, 2.5rem);
     line-height: 1.2;
   }
 
   .cta-container p {
     margin: 0.8rem 0 0;
+
     color: rgba(255, 255, 255, 0.72);
+
     line-height: 1.7;
   }
 
   .cta-button {
     flex: 0 0 auto;
+
     min-height: 50px;
+
     display: inline-flex;
     align-items: center;
     justify-content: center;
+
     padding-inline: 1.5rem;
+
     border-radius: var(--radius-sm);
+
     color: var(--color-primary);
     background: white;
+
     font-size: 0.9rem;
     font-weight: 700;
+
     transition: transform var(--transition-fast);
   }
 
@@ -515,14 +648,29 @@ const { specialty } = Astro.props;
     transform: translateY(-2px);
   }
 
+
+  /* =========================================================
+     Responsive — tablet
+     ========================================================= */
+
   @media (max-width: 900px) {
+    .specialty-hero {
+      background-position: 65% center;
+    }
+
     .hero-grid {
       grid-template-columns: 1fr;
       gap: 2.5rem;
     }
 
     .hero-visual {
-      min-height: 300px;
+      min-height: auto;
+
+      justify-content: flex-start;
+    }
+
+    .visual-copy {
+      max-width: 320px;
     }
 
     .care-grid {
@@ -540,9 +688,22 @@ const { specialty } = Astro.props;
     }
   }
 
+
+  /* =========================================================
+     Responsive — móvil
+     ========================================================= */
+
   @media (max-width: 600px) {
+    .specialty-hero {
+      background-position: 68% center;
+    }
+
     .hero-grid {
       padding-block: 3.5rem;
+    }
+
+    .hero-visual {
+      display: none;
     }
 
     .hero-actions {

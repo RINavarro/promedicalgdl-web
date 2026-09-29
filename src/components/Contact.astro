@@ -1,0 +1,299 @@
+---
+import { contact } from "../data/contact";
+
+const generalMessage =
+  "Hola, me gustaría solicitar información para agendar una cita.";
+
+const primaryWhatsappHref =
+  `https://wa.me/${contact.primaryWhatsapp.value}?text=${encodeURIComponent(generalMessage)}`;
+
+const secondaryWhatsappHref =
+  `https://wa.me/${contact.secondaryWhatsapp.value}?text=${encodeURIComponent(generalMessage)}`;
+---
+
+<section id="contacto" class="contact section">
+  <div class="container contact-grid">
+
+    <div class="contact-content">
+      <span class="eyebrow">
+        Contacto
+      </span>
+
+      <h2>
+        Agenda tu consulta de forma
+        <span>rápida y sencilla</span>
+      </h2>
+
+      <p>
+        Comunícate con nuestro equipo para recibir orientación sobre
+        especialidades, médicos y disponibilidad de atención.
+      </p>
+
+      <div class="contact-note">
+        <span aria-hidden="true">i</span>
+
+        <p>
+          La información proporcionada por estos medios es de carácter
+          administrativo y de orientación. La valoración médica se realiza
+          directamente con el especialista.
+        </p>
+      </div>
+    </div>
+
+    <div class="contact-options">
+
+      <article class="contact-card">
+        <span class="contact-label">
+          WhatsApp principal
+        </span>
+
+        <strong>
+          {contact.primaryWhatsapp.display}
+        </strong>
+
+        <a
+          href={primaryWhatsappHref}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Enviar mensaje
+        </a>
+      </article>
+
+      <article class="contact-card">
+        <span class="contact-label">
+          WhatsApp alterno
+        </span>
+
+        <strong>
+          {contact.secondaryWhatsapp.display}
+        </strong>
+
+        <a
+          href={secondaryWhatsappHref}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Enviar mensaje
+        </a>
+      </article>
+
+      <article class="contact-card contact-card--email">
+        <span class="contact-label">
+          Correo electrónico
+        </span>
+
+        <strong>
+          {contact.email}
+        </strong>
+
+        <a href={`mailto:${contact.email}`}>
+          Enviar correo
+        </a>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .contact {
+    background:
+      radial-gradient(
+        circle at 15% 20%,
+        rgba(18, 167, 160, 0.08),
+        transparent 30%
+      ),
+      var(--color-background-soft);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .contact-content {
+    max-width: 620px;
+  }
+
+  .eyebrow {
+    display: block;
+
+    margin-bottom: 0.7rem;
+
+    color: var(--color-secondary);
+
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .contact-content h2 {
+    margin: 0;
+
+    color: var(--color-primary);
+
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+  }
+
+  .contact-content h2 span {
+    color: var(--color-secondary);
+  }
+
+  .contact-content > p {
+    margin: 1.2rem 0 0;
+
+    color: var(--color-text-muted);
+
+    line-height: 1.8;
+  }
+
+  .contact-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+
+    margin-top: 2rem;
+    padding: 1.2rem;
+
+    border: 1px solid rgba(18, 167, 160, 0.25);
+    border-radius: var(--radius-md);
+
+    background: rgba(255, 255, 255, 0.72);
+  }
+
+  .contact-note > span {
+    width: 32px;
+    height: 32px;
+
+    flex: 0 0 auto;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    color: white;
+    background: var(--color-secondary);
+
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .contact-note p {
+    margin: 0;
+
+    color: var(--color-text-muted);
+
+    font-size: 0.84rem;
+    line-height: 1.6;
+  }
+
+  .contact-options {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .contact-card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 0.35rem 1.5rem;
+
+    padding: 1.5rem;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+
+    background: white;
+    box-shadow: var(--shadow-sm);
+
+    transition:
+      transform var(--transition-fast),
+      border-color var(--transition-fast),
+      box-shadow var(--transition-fast);
+  }
+
+  .contact-card:hover {
+    transform: translateY(-3px);
+
+    border-color: rgba(18, 167, 160, 0.35);
+    box-shadow: var(--shadow-md);
+  }
+
+  .contact-label {
+    grid-column: 1;
+
+    color: var(--color-text-muted);
+
+    font-size: 0.78rem;
+    font-weight: 650;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .contact-card strong {
+    grid-column: 1;
+
+    color: var(--color-primary);
+
+    font-size: 1.15rem;
+  }
+
+  .contact-card a {
+    grid-column: 2;
+    grid-row: 1 / 3;
+
+    min-height: 42px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding-inline: 1.2rem;
+
+    border-radius: var(--radius-sm);
+
+    color: white;
+    background: var(--color-primary);
+
+    font-size: 0.86rem;
+    font-weight: 650;
+  }
+
+  .contact-card a:hover {
+    background: var(--color-primary-dark);
+  }
+
+  .contact-card--email strong {
+    word-break: break-word;
+  }
+
+  @media (max-width: 900px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .contact-card {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-card a {
+      grid-column: 1;
+      grid-row: auto;
+
+      width: 100%;
+
+      margin-top: 0.8rem;
+    }
+  }
+</style>

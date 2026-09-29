@@ -1,6 +1,11 @@
 ---
-import { Image } from "astro:assets";
-import medicalTeam from "../assets/images/medical-team-hero.png";
+import { contact } from "../data/contact";
+
+const generalMessage =
+  "Hola, me gustaría solicitar información para agendar una cita.";
+
+const whatsappHref =
+  `https://wa.me/${contact.primaryWhatsapp.value}?text=${encodeURIComponent(generalMessage)}`;
 ---
 <section class="hero">
   <div class="container hero-container">
@@ -20,11 +25,19 @@ import medicalTeam from "../assets/images/medical-team-hero.png";
       </p>
 
       <div class="hero-actions">
-        <a class="button button-primary" href="#contacto">
+        <a
+          class="button button-primary"
+          href={whatsappHref}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Agendar por WhatsApp
         </a>
 
-        <a class="button button-secondary" href="#especialidades">
+        <a
+          class="button button-secondary"
+          href="#especialidades"
+        >
           Ver especialidades
         </a>
       </div>
@@ -48,25 +61,16 @@ import medicalTeam from "../assets/images/medical-team-hero.png";
     </div>
 
     <div class="hero-visual">
-        <div class="visual-placeholder">
-            <Image
-                src={medicalTeam}
-                alt="Equipo de profesionales médicos"
-                class="hero-image"
-            />
-        </div>
 
-    <div class="trust-card">
-        <div class="trust-icon">✓</div>
+      <div class="visual-placeholder">
+        <img
+          src="/images/promedical_logo.png"
+          alt="Pro Medical GDL"
+          class="hero-logo"
+        />
+      </div>
 
-        <div>
-        <strong>Atención profesional</strong>
-        <span>
-            Especialistas comprometidos con tu salud.
-        </span>
-        </div>
     </div>
-    </div> 
 
   </div>
 </section>
@@ -77,16 +81,18 @@ import medicalTeam from "../assets/images/medical-team-hero.png";
     overflow: hidden;
 
     background:
-      radial-gradient(
-        circle at 80% 20%,
-        rgba(18, 167, 160, 0.12),
-        transparent 35%
-      ),
       linear-gradient(
-        135deg,
-        #ffffff 0%,
-        #f5f9fb 100%
-      );
+        90deg,
+        rgba(255, 255, 255, 0.98) 0%,
+        rgba(255, 255, 255, 0.92) 38%,
+        rgba(245, 249, 251, 0.72) 62%,
+        rgba(13, 63, 122, 0.12) 100%
+      ),
+      url("/images/background.jpeg");
+
+    background-size: cover;
+    background-position: 60% center;
+    background-repeat: no-repeat;
   }
 
   .hero-container {
@@ -243,104 +249,41 @@ import medicalTeam from "../assets/images/medical-team-hero.png";
 
   .hero-visual {
     position: relative;
-
-    min-height: 440px;
+    min-height: 380px;
   }
 
   .visual-placeholder {
-  position: absolute;
-  inset: 0 0 0 2rem;
-
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-
-  overflow: hidden;
-
-  border: 1px solid rgba(13, 63, 122, 0.08);
-  border-radius: var(--radius-lg);
-
-  background:
-    radial-gradient(
-      circle at 70% 25%,
-      rgba(18, 167, 160, 0.14),
-      transparent 40%
-    ),
-    linear-gradient(
-      145deg,
-      rgba(255, 255, 255, 0.96),
-      rgba(18, 167, 160, 0.07)
-    );
-
-  box-shadow: var(--shadow-md);
-}
-
-.hero-image {
-  width: 100%;
-  height: 100%;
-
-  object-fit: contain;
-  object-position: center bottom;
-}
-
-  /* Floating trust card */
-
-  .trust-card {
     position: absolute;
-    right: -1rem;
-    bottom: 2rem;
-
-    width: min(310px, 75%);
+    inset: 0;
 
     display: flex;
-    align-items: flex-start;
-    gap: 1rem;
+    align-items: center;
+    justify-content: flex-end;
 
-    padding: 1.25rem;
-
-    border-radius: var(--radius-md);
-
-    color: white;
-    background: var(--color-primary);
-
-    box-shadow: var(--shadow-md);
+    padding: 1rem 0 1rem 2rem;
   }
 
-  .trust-icon {
-    width: 38px;
-    height: 38px;
+  .hero-logo {
+    width: min(100%, 560px);
+    height: auto;
 
-    flex: 0 0 auto;
+    display: block;
 
-    display: grid;
-    place-items: center;
+    object-fit: contain;
 
-    border: 1px solid rgba(255, 255, 255, 0.55);
-    border-radius: 50%;
+    transform: translateX(35px);
 
-    font-weight: 700;
-  }
-
-  .trust-card div:last-child {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .trust-card strong {
-    font-size: 0.9rem;
-  }
-
-  .trust-card span {
-    color: rgba(255, 255, 255, 0.8);
-
-    font-size: 0.75rem;
-    line-height: 1.45;
+    filter: drop-shadow(
+      0 10px 24px rgba(8, 45, 89, 0.12)
+    );
   }
 
   /* Tablet */
 
   @media (max-width: 900px) {
+    .hero {
+      background-position: 65% center;
+    }
     .hero-container {
       grid-template-columns: 1fr;
       gap: 3rem;
@@ -368,6 +311,11 @@ import medicalTeam from "../assets/images/medical-team-hero.png";
   /* Mobile */
 
   @media (max-width: 600px) {
+
+    .hero {
+      background-position: 70% center;
+    }
+    
     .hero-container {
       padding-block: 3.5rem;
     }

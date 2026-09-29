@@ -1,0 +1,470 @@
+---
+import type { Doctor } from "../data/doctors";
+import { contact } from "../data/contact";
+
+interface Props {
+  doctor: Doctor;
+}
+
+const { doctor } = Astro.props;
+
+const dialogId = `doctor-${doctor.slug}-credentials`;
+
+const whatsappMessage =
+  `Hola, me gustaría solicitar información para agendar una valoración con ${doctor.name}.`;
+
+const whatsappHref =
+  `https://wa.me/${contact.primaryWhatsapp.value}?text=${encodeURIComponent(whatsappMessage)}`;
+---
+
+<article class="doctor-card">
+
+  <div class="doctor-photo">
+    <img
+      src={doctor.image}
+      alt={doctor.name}
+      loading="eager"
+    />
+  </div>
+
+  <div class="doctor-info">
+    <span class="doctor-label">
+      Especialista
+    </span>
+
+    <h3>
+      {doctor.name}
+    </h3>
+
+    <p>
+      {doctor.specialty}
+    </p>
+
+    <button
+      class="credentials-button"
+      type="button"
+      data-doctor-dialog={dialogId}
+      aria-haspopup="dialog"
+    >
+      Ver credenciales
+      <span aria-hidden="true">→</span>
+    </button>
+  </div>
+
+</article>
+
+<dialog
+  id={dialogId}
+  class="doctor-dialog"
+  aria-labelledby={`${dialogId}-title`}
+>
+  <div class="dialog-content">
+
+    <button
+      class="dialog-close"
+      type="button"
+      aria-label="Cerrar credenciales"
+    >
+      ×
+    </button>
+
+    <div class="dialog-heading">
+
+      <div class="dialog-photo">
+        <img
+          src={doctor.image}
+          alt=""
+        />
+      </div>
+
+      <div>
+        <span class="dialog-eyebrow">
+          Especialista
+        </span>
+
+        <h2 id={`${dialogId}-title`}>
+          {doctor.name}
+        </h2>
+
+        <p>
+          {doctor.specialty}
+        </p>
+      </div>
+
+    </div>
+
+    <div class="credentials">
+      {
+        doctor.credentials.map((credential) => (
+          <div class="credential">
+            <span>
+              {credential.label}
+            </span>
+
+            <strong>
+              {credential.value}
+            </strong>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="dialog-actions">
+      <a
+        class="appointment-link"
+        href={whatsappHref}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Agendar valoración
+      </a>
+    </div>
+
+  </div>
+</dialog>
+
+<script>
+  document
+    .querySelectorAll<HTMLButtonElement>("[data-doctor-dialog]")
+    .forEach((button) => {
+      button.addEventListener("click", () => {
+        const dialogId = button.dataset.doctorDialog;
+
+        if (!dialogId) return;
+
+        const dialog =
+          document.getElementById(dialogId) as HTMLDialogElement | null;
+
+        dialog?.showModal();
+      });
+    });
+
+  document
+    .querySelectorAll<HTMLDialogElement>(".doctor-dialog")
+    .forEach((dialog) => {
+      const closeButton =
+        dialog.querySelector<HTMLButtonElement>(".dialog-close");
+
+      closeButton?.addEventListener("click", () => {
+        dialog.close();
+      });
+
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) {
+          dialog.close();
+        }
+      });
+    });
+</script>
+
+<style>
+  .doctor-card {
+    overflow: hidden;
+
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: var(--radius-lg);
+
+    background: rgba(255, 255, 255, 0.94);
+
+    box-shadow: var(--shadow-md);
+  }
+
+  .doctor-photo {
+    height: 260px;
+
+    overflow: hidden;
+
+    background: var(--color-background-soft);
+  }
+
+  .doctor-photo img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center 20%;
+  }
+
+  .doctor-info {
+    padding: 1.3rem 1.4rem 1.4rem;
+  }
+
+  .doctor-label {
+    display: block;
+
+    margin-bottom: 0.4rem;
+
+    color: var(--color-secondary);
+
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .doctor-info h3 {
+    margin: 0;
+
+    color: var(--color-primary);
+
+    font-size: 1.15rem;
+    line-height: 1.25;
+  }
+
+  .doctor-info p {
+    margin: 0.35rem 0 0;
+
+    color: var(--color-text-muted);
+
+    font-size: 0.88rem;
+  }
+
+  .credentials-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    margin-top: 1rem;
+    padding: 0;
+
+    border: 0;
+
+    color: var(--color-primary);
+    background: transparent;
+
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 700;
+
+    cursor: pointer;
+  }
+
+  .credentials-button span {
+    transition: transform var(--transition-fast);
+  }
+
+  .credentials-button:hover span {
+    transform: translateX(4px);
+  }
+
+  /* Modal */
+
+  .doctor-dialog {
+    width: min(650px, calc(100% - 2rem));
+    max-height: calc(100vh - 2rem);
+
+    padding: 0;
+
+    overflow: auto;
+
+    border: 0;
+    border-radius: var(--radius-lg);
+
+    background: white;
+
+    box-shadow:
+      0 24px 70px rgba(13, 63, 122, 0.24);
+  }
+
+  .doctor-dialog::backdrop {
+    background: rgba(8, 24, 43, 0.64);
+
+    backdrop-filter: blur(4px);
+  }
+
+  .dialog-content {
+    position: relative;
+
+    padding: 2rem;
+  }
+
+  .dialog-close {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+
+    width: 42px;
+    height: 42px;
+
+    display: grid;
+    place-items: center;
+
+    padding: 0;
+
+    border: 0;
+    border-radius: 50%;
+
+    color: var(--color-primary);
+    background: var(--color-background-soft);
+
+    font-size: 1.6rem;
+    line-height: 1;
+
+    cursor: pointer;
+  }
+
+  .dialog-heading {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    align-items: center;
+    gap: 1.3rem;
+
+    padding-right: 3rem;
+  }
+
+  .dialog-photo {
+    width: 100px;
+    height: 100px;
+
+    overflow: hidden;
+
+    border-radius: 50%;
+
+    background: var(--color-background-soft);
+  }
+
+  .dialog-photo img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center 20%;
+  }
+
+  .dialog-eyebrow {
+    display: block;
+
+    margin-bottom: 0.4rem;
+
+    color: var(--color-secondary);
+
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .dialog-heading h2 {
+    margin: 0;
+
+    color: var(--color-primary);
+
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    line-height: 1.2;
+  }
+
+  .dialog-heading p {
+    margin: 0.4rem 0 0;
+
+    color: var(--color-text-muted);
+  }
+
+  .credentials {
+    display: grid;
+    gap: 0;
+
+    margin-top: 2rem;
+
+    overflow: hidden;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+
+  .credential {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 1rem;
+
+    padding: 0.9rem 1.1rem;
+
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .credential:last-child {
+    border-bottom: 0;
+  }
+
+  .credential span {
+    color: var(--color-text-muted);
+
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+
+  .credential strong {
+    color: var(--color-text);
+
+    font-size: 0.88rem;
+  }
+
+  .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-top: 1.5rem;
+  }
+
+  .appointment-link {
+    min-height: 48px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding-inline: 1.5rem;
+
+    border-radius: var(--radius-sm);
+
+    color: white;
+    background: var(--color-primary);
+
+    font-size: 0.88rem;
+    font-weight: 700;
+
+    transition:
+      background var(--transition-fast),
+      transform var(--transition-fast);
+  }
+
+  .appointment-link:hover {
+    background: var(--color-primary-dark);
+
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 600px) {
+    .doctor-photo {
+      height: 300px;
+    }
+
+    .dialog-content {
+      padding: 1.5rem;
+    }
+
+    .dialog-heading {
+      grid-template-columns: 80px 1fr;
+
+      gap: 1rem;
+    }
+
+    .dialog-photo {
+      width: 80px;
+      height: 80px;
+    }
+
+    .credential {
+      grid-template-columns: 1fr;
+
+      gap: 0.25rem;
+    }
+
+    .appointment-link {
+      width: 100%;
+    }
+  }
+</style>

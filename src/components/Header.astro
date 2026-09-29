@@ -1,4 +1,12 @@
 ---
+import { contact } from "../data/contact";
+
+const generalMessage =
+  "Hola, me gustaría solicitar información para agendar una cita.";
+
+const whatsappHref =
+  `https://wa.me/${contact.primaryWhatsapp.value}?text=${encodeURIComponent(generalMessage)}`;
+  
 const navigation = [
   { label: "Inicio", href: "/" },
   { label: "Especialidades", href: "/#especialidades" },
@@ -11,13 +19,39 @@ const navigation = [
 <header class="site-header">
   <div class="container header-container">
 
-   <a class="brand" href="/" aria-label="Promedical GDL - Ir al inicio">
-      <img
-        class="brand-logo"
-        src="/images/promedical_logo.png"
-        alt="Promedical GDL - Especialidades Médicas"
-      />
-    </a> 
+   <div class="social-links" aria-label="Redes sociales">
+    <span
+      class="social-icon social-icon--facebook"
+      aria-label="Facebook"
+      title="Facebook"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <path
+          fill="currentColor"
+          d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.099 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.413c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.971h-1.513c-1.49 0-1.956.931-1.956 1.887v2.263h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.099 24 12.073Z"
+        />
+      </svg>
+    </span>
+
+    <span
+      class="social-icon social-icon--instagram"
+      aria-label="Instagram"
+      title="Instagram"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <path
+          fill="currentColor"
+          d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069ZM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947C23.728 2.695 21.31.273 16.948.073 15.668.014 15.259 0 12 0Zm0 5.838A6.162 6.162 0 1 0 12 18.162 6.162 6.162 0 0 0 12 5.838Zm0 10.162A4 4 0 1 1 12 8a4 4 0 0 1 0 8Zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881Z"
+        />
+      </svg>
+    </span>
+  </div> 
 
     <nav class="desktop-nav" aria-label="Navegación principal">
       {
@@ -27,7 +61,12 @@ const navigation = [
       }
     </nav>
 
-    <a class="appointment-button" href="#contacto">
+    <a
+      class="appointment-button"
+      href={whatsappHref}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       Agendar cita
     </a>
 
@@ -57,7 +96,12 @@ const navigation = [
         ))
       }
 
-      <a class="mobile-appointment" href="#contacto">
+      <a
+        class="appointment-button"
+        href={whatsappHref}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         Agendar cita
       </a>
     </div>
@@ -101,23 +145,51 @@ const navigation = [
     gap: 2rem;
   }
 
-  /* Brand */
-  .brand {
+  /* Social networks */
+
+  .social-links {
     display: flex;
     align-items: center;
+    gap: 0.65rem;
 
     margin-right: auto;
 
     flex-shrink: 0;
   }
 
-  .brand-logo {
-    display: block;
-    width: 110px;
-    height: auto;
-    object-fit: contain;
+  .social-icon {
+    width: 40px;
+    height: 40px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.9);
+
+    transition:
+      color var(--transition-fast),
+      border-color var(--transition-fast),
+      background var(--transition-fast),
+      transform var(--transition-fast);
   }
 
+  .social-icon svg {
+    width: 18px;
+    height: 18px;
+
+    display: block;
+  }
+
+  .social-icon--facebook {
+    color: var(--color-primary);
+  }
+
+  .social-icon--instagram {
+    color: var(--color-secondary);
+  }
 
   /* Desktop navigation */
 
@@ -269,12 +341,18 @@ const navigation = [
   }
 
   @media (max-width: 480px) {
-    .header-container {
-      min-height: 72px;
-    }
-
-    .brand-logo {
-      width: 95px;
-    }
+  .header-container {
+    min-height: 72px;
   }
+
+  .social-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .social-icon svg {
+    width: 17px;
+    height: 17px;
+  }
+}
 </style>

@@ -1,0 +1,459 @@
+---
+import type { SpecialtyDetailCard } from "../data/specialty-pages";
+import { contact } from "../data/contact";
+import MedicalIcon from "./MedicalIcon.astro";
+
+interface Props {
+  cards: SpecialtyDetailCard[];
+  specialtyTitle: string;
+}
+
+const { cards, specialtyTitle } = Astro.props;
+
+const getWhatsappHref = (context?: string) => {
+  const message = context
+    ? `Hola, me gustaría solicitar información para agendar una valoración de ${specialtyTitle} relacionada con ${context}.`
+    : `Hola, me gustaría solicitar información para agendar una valoración de ${specialtyTitle}.`;
+
+  return `https://wa.me/${contact.primaryWhatsapp.value}?text=${encodeURIComponent(message)}`;
+};
+---
+
+<div class="detail-grid">
+  {
+    cards.map((card, index) => {
+      const dialogId = `specialty-dialog-${index}`;
+
+      return (
+        <>
+          <button
+            class="detail-card"
+            type="button"
+            data-dialog={dialogId}
+            aria-haspopup="dialog"
+          >
+            <div class="card-icon">
+              {card.icon && <MedicalIcon name={card.icon} />}
+            </div>
+            <span class="card-number">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+
+            <h3>{card.title}</h3>
+
+            <p>{card.summary}</p>
+
+            <span class="card-hint">
+              Más información
+              <span aria-hidden="true">+</span>
+            </span>
+          </button>
+
+          <dialog
+            id={dialogId}
+            class="detail-dialog"
+            aria-labelledby={`${dialogId}-title`}
+          >
+            <div class="dialog-content">
+              <button
+                class="dialog-close"
+                type="button"
+                aria-label="Cerrar información"
+              >
+                ×
+              </button>
+
+              <span class="dialog-eyebrow">
+                {specialtyTitle}
+              </span>
+
+              <h2 id={`${dialogId}-title`}>
+                {card.title}
+              </h2>
+
+              <p class="dialog-description">
+                {card.description}
+              </p>
+
+              {
+                card.items && card.items.length > 0 && (
+                  <ul class="dialog-list">
+                    {card.items.map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </ul>
+                )
+              }
+
+              <div class="dialog-actions">
+                <a
+                  class="dialog-cta"
+                  href={getWhatsappHref(card.whatsappContext)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Agendar valoración
+                </a>
+              </div>
+            </div>
+          </dialog>
+        </>
+      );
+    })
+  }
+</div>
+
+<script>
+  const cards =
+    document.querySelectorAll<HTMLButtonElement>("[data-dialog]");
+
+  cards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const dialogId = card.dataset.dialog;
+
+      if (!dialogId) return;
+
+      const dialog =
+        document.getElementById(dialogId) as HTMLDialogElement | null;
+
+      dialog?.showModal();
+    });
+  });
+
+  document
+    .querySelectorAll<HTMLDialogElement>(".detail-dialog")
+    .forEach((dialog) => {
+      const closeButton =
+        dialog.querySelector<HTMLButtonElement>(".dialog-close");
+
+      closeButton?.addEventListener("click", () => {
+        dialog.close();
+      });
+
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) {
+          dialog.close();
+        }
+      });
+    });
+</script>
+
+<style>
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .detail-card {
+    position: relative;
+    overflow: hidden;
+
+    min-height: 230px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    padding: 1.7rem;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+
+    color: inherit;
+    background: white;
+
+    font: inherit;
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+      transform var(--transition-fast),
+      box-shadow var(--transition-fast),
+      border-color var(--transition-fast);
+  }
+
+  .detail-card:hover {
+    transform: translateY(-4px);
+
+    border-color: rgba(18, 167, 160, 0.45);
+    box-shadow: var(--shadow-md);
+  }
+
+  .detail-card:focus-visible {
+    outline: 3px solid rgba(18, 167, 160, 0.25);
+    outline-offset: 3px;
+  }
+
+  .card-icon {
+    position: absolute;
+    top: 1.15rem;
+    right: 1.35rem;
+
+    width: 110px;
+    height: 110px;
+
+    color: var(--color-secondary);
+    opacity: 0.28;
+
+    pointer-events: none;
+
+    transition:
+      opacity var(--transition-fast),
+      transform var(--transition-fast);
+  }
+
+  .detail-card:hover .card-icon {
+    opacity: 0.42;
+    transform: scale(1.06);
+  }
+
+  .card-number {
+    display: block;
+
+    margin-bottom: 1.3rem;
+
+    color: var(--color-secondary);
+
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+
+  .detail-card h3 {
+    position: relative;
+    z-index: 1;
+
+    max-width: calc(100% - 90px);
+
+    margin: 0;
+
+    color: var(--color-primary);
+
+    font-size: 1.08rem;
+  }
+
+  .detail-card p {
+    margin: 0.8rem 0 1.4rem;
+
+    color: var(--color-text-muted);
+
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  .card-hint {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    margin-top: auto;
+
+    color: var(--color-secondary);
+
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  .card-hint span {
+    font-size: 1.1rem;
+  }
+
+  /* Modal */
+
+  .detail-dialog {
+    width: min(680px, calc(100% - 2rem));
+    max-height: calc(100vh - 3rem);
+
+    padding: 0;
+
+    border: 0;
+    border-radius: var(--radius-lg);
+
+    background: white;
+
+    box-shadow:
+      0 24px 70px rgba(13, 63, 122, 0.22);
+
+    overflow: auto;
+  }
+
+  .detail-dialog::backdrop {
+    background: rgba(8, 24, 43, 0.62);
+    backdrop-filter: blur(4px);
+  }
+
+  .dialog-content {
+    position: relative;
+
+    padding: 2.5rem;
+  }
+
+  .dialog-close {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+
+    width: 42px;
+    height: 42px;
+
+    display: grid;
+    place-items: center;
+
+    padding: 0;
+
+    border: 0;
+    border-radius: 50%;
+
+    color: var(--color-primary);
+    background: var(--color-background-soft);
+
+    font-size: 1.6rem;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+      background var(--transition-fast),
+      transform var(--transition-fast);
+  }
+
+  .dialog-close:hover {
+    background: var(--color-border);
+    transform: rotate(5deg);
+  }
+
+  .dialog-eyebrow {
+    display: block;
+
+    margin-bottom: 0.65rem;
+    padding-right: 3rem;
+
+    color: var(--color-secondary);
+
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .detail-dialog h2 {
+    margin: 0;
+    padding-right: 3rem;
+
+    color: var(--color-primary);
+
+    font-size: clamp(1.7rem, 4vw, 2.4rem);
+    line-height: 1.15;
+  }
+
+  .dialog-description {
+    margin: 1.25rem 0 0;
+
+    color: var(--color-text-muted);
+
+    line-height: 1.8;
+  }
+
+  .dialog-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem 1.5rem;
+
+    margin: 1.75rem 0 0;
+    padding: 1.5rem;
+
+    border-radius: var(--radius-md);
+
+    background: var(--color-background-soft);
+
+    list-style: none;
+  }
+
+  .dialog-list li {
+    position: relative;
+
+    padding-left: 1.2rem;
+
+    color: var(--color-text);
+
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .dialog-list li::before {
+    content: "";
+
+    position: absolute;
+    top: 0.55em;
+    left: 0;
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: var(--color-secondary);
+  }
+
+  .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-top: 2rem;
+  }
+
+  .dialog-cta {
+    min-height: 48px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding-inline: 1.5rem;
+
+    border-radius: var(--radius-sm);
+
+    color: white;
+    background: var(--color-primary);
+
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    transition:
+      background var(--transition-fast),
+      transform var(--transition-fast);
+  }
+
+  .dialog-cta:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 760px) {
+    .detail-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .detail-card {
+      min-height: 210px;
+    }
+
+    .dialog-content {
+      padding: 2rem 1.4rem 1.5rem;
+    }
+
+    .dialog-list {
+      grid-template-columns: 1fr;
+    }
+
+    .dialog-actions {
+      display: block;
+    }
+
+    .dialog-cta {
+      width: 100%;
+    }
+  }
+</style>

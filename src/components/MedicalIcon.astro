@@ -1,0 +1,235 @@
+---
+interface Props {
+  name: string;
+  class?: string;
+}
+
+const {
+  name,
+  class: className = "",
+} = Astro.props;
+---
+
+<span class:list={["medical-icon", className]} aria-hidden="true">
+
+  <!-- PARED ABDOMINAL / HERNIAS -->
+  {
+    name === "abdominal-wall" && (
+      <svg viewBox="0 0 100 100">
+        <path d="M36 10c-1 10-6 16-10 24-5 10-6 21-3 34 3 12 13 20 27 20s24-8 27-20c3-13 2-24-3-34-4-8-9-14-10-24" />
+        <path d="M38 29c7 5 17 5 24 0" />
+        <path d="M50 29v42" />
+        <circle cx="50" cy="52" r="5" />
+        <path d="M31 72c6-7 12-10 19-10s13 3 19 10" />
+      </svg>
+    )
+  }
+
+  <!-- ESTÓMAGO / HERNIA HIATAL -->
+  {
+    name === "stomach" && (
+      <svg viewBox="0 0 100 100">
+        <path d="M47 10v22c0 6-3 10-9 13-10 5-17 15-15 27 2 11 11 18 23 18 18 0 31-13 31-30 0-13-7-21-17-25-7-3-9-8-9-15V10" />
+        <path d="M50 39c7 7 15 10 25 10" />
+        <path d="M30 66c10 4 20 3 29-3" />
+      </svg>
+    )
+  }
+
+  <!-- APÉNDICE -->
+  {
+    name === "appendix" && (
+      <svg viewBox="0 0 100 100">
+        <path d="M27 19c-8 10-11 23-8 37 4 19 17 30 34 30 16 0 28-8 33-21 4-12 1-26-7-36" />
+        <path d="M31 30c8 6 14 9 19 9 6 0 12-3 20-9" />
+        <path d="M33 48c5 4 11 6 17 6 7 0 13-2 18-6" />
+        <path d="M50 39v34" />
+        <path d="M50 73c7 2 11 8 10 16" />
+      </svg>
+    )
+  }
+
+  <!-- VESÍCULA BILIAR -->
+  {
+    name === "gallbladder" && (
+      <svg viewBox="0 0 100 100">
+        <path d="M19 28c14-13 35-18 57-11 7 2 11 7 10 13-1 6-6 9-14 9H53" />
+        <path d="M52 31c-1 13-5 20-11 27-5 6-7 12-4 20 2 7 8 11 15 11 10 0 17-8 17-18 0-8-4-14-9-20-5-6-7-12-8-20Z" />
+        <path d="M53 30c8 1 15 0 21-3" />
+      </svg>
+    )
+  }
+
+  <!-- LIPOMA / TEJIDO BLANDO -->
+  {
+    name === "lipoma" && (
+      <svg viewBox="0 0 100 100">
+        <path d="M12 30c15-6 27-6 38 0s23 6 38 0" />
+        <path d="M12 41c15-6 27-6 38 0s23 6 38 0" />
+        <path d="M12 52c15-6 27-6 38 0s23 6 38 0" />
+        <path d="M12 63c15-6 27-6 38 0s23 6 38 0" />
+        <ellipse cx="52" cy="50" rx="17" ry="12" />
+        <path d="M41 48c6-5 13-6 22-2" />
+      </svg>
+    )
+  }
+
+  <!-- REEMPLAZO ARTICULAR -->
+  {
+    name === "joint-replacement" && (
+      <svg viewBox="0 0 100 100">
+        <path d="M37 9v26c0 7 5 13 12 14" />
+        <path d="M63 9v26c0 7-5 13-12 14" />
+        <path d="M49 49c-8 2-13 8-13 16v26" />
+        <path d="M51 49c8 2 13 8 13 16v26" />
+        <circle cx="50" cy="49" r="11" />
+        <path d="M43 49h14" />
+        <path d="M50 42v14" />
+      </svg>
+    )
+  }
+
+  <!-- LESIÓN DEPORTIVA / RODILLA -->
+  {
+    name === "sports-injury" && (
+      <svg viewBox="0 0 100 100">
+        <path d="M39 8c0 14 1 25 7 35" />
+        <path d="M61 8c0 14-1 25-7 35" />
+        <path d="M46 43c-8 6-12 14-10 23 2 11 8 18 12 26" />
+        <path d="M54 43c8 6 12 14 10 23-2 11-8 18-12 26" />
+        <circle cx="50" cy="51" r="10" />
+        <path d="m42 45 16 13" />
+        <path d="m58 45-16 13" />
+      </svg>
+    )
+  }
+
+  <!-- FRACTURA -->
+  {
+    name === "fracture" && (
+      <svg viewBox="0 0 100 100">
+        <path d="M29 11c-6-5-15-4-20 2s-4 15 2 20l24 20" />
+        <path d="m65 47 24 20c6 5 7 14 2 20s-14 7-20 2L47 69" />
+        <path d="m35 53 13-9-2 12 12-7-4 13 12-5-19 12" />
+      </svg>
+    )
+  }
+
+  <!-- TRAUMA -->
+  {
+    name === "trauma" && (
+      <svg viewBox="0 0 100 100">
+        <circle cx="50" cy="16" r="9" />
+        <path d="M50 25v29" />
+        <path d="M27 37 50 30l23 7" />
+        <path d="m50 54-17 35" />
+        <path d="m50 54 17 35" />
+        <path d="M20 48h15" />
+        <path d="M27.5 40.5v15" />
+        <path d="M67 65l8 8" />
+        <path d="m75 65-8 8" />
+      </svg>
+    )
+  }
+
+  <!-- PRÓSTATA -->
+  {
+    name === "prostate" && (
+      <svg viewBox="0 0 100 100">
+        <path d="M50 8v28" />
+        <path d="M50 36c-9-10-26-8-32 4-7 15 7 31 32 31s39-16 32-31c-6-12-23-14-32-4Z" />
+        <path d="M50 71v20" />
+        <path d="M34 42c4 6 9 9 16 9s12-3 16-9" />
+      </svg>
+    )
+  }
+
+  <!-- RIÑÓN CON CÁLCULO -->
+  {
+    name === "kidney-stone" && (
+      <svg viewBox="0 0 100 100">
+        <path d="M48 14c-18-5-32 8-32 29 0 23 12 40 29 40 10 0 16-8 16-19V39c0-13-5-22-13-25Z" />
+        <path d="M44 36c-8 2-13 9-13 18" />
+        <path d="M61 57c7 2 12 7 14 15" />
+        <path d="M71 51l4 7 8 1-6 6 2 8-8-4-7 4 1-8-6-6 8-1Z" />
+      </svg>
+    )
+  }
+
+  <!-- SISTEMA URINARIO -->
+  {
+    name === "urinary-system" && (
+      <svg viewBox="0 0 100 100">
+        <path d="M35 15c-12-3-21 6-21 20 0 16 8 27 19 27 7 0 11-5 11-13V32c0-9-3-15-9-17Z" />
+        <path d="M65 15c12-3 21 6 21 20 0 16-8 27-19 27-7 0-11-5-11-13V32c0-9 3-15 9-17Z" />
+        <path d="M36 58v14" />
+        <path d="M64 58v14" />
+        <path d="M36 72c0 10 5 17 14 17s14-7 14-17" />
+        <path d="M50 89v7" />
+      </svg>
+    )
+  }
+
+  <!-- SALUD REPRODUCTIVA MASCULINA -->
+  {
+    name === "male-reproductive" && (
+      <svg viewBox="0 0 100 100">
+        <circle cx="39" cy="67" r="12" />
+        <circle cx="61" cy="67" r="12" />
+        <path d="M39 55c0-14 4-25 11-32" />
+        <path d="M61 55c0-14-4-25-11-32" />
+        <path d="M50 23V8" />
+        <path d="M50 34v21" />
+        <path d="M44 40c4 3 8 3 12 0" />
+      </svg>
+    )
+  }
+
+  <!-- TESTÍCULO / ESCROTO -->
+  {
+    name === "testicle" && (
+      <svg viewBox="0 0 100 100">
+        <path d="M50 9v29" />
+        <path d="M50 38c-15-6-30 3-30 20 0 20 13 33 30 33s30-13 30-33c0-17-15-26-30-20Z" />
+        <ellipse cx="38" cy="63" rx="10" ry="15" />
+        <ellipse cx="62" cy="63" rx="10" ry="15" />
+        <path d="M50 38v48" />
+      </svg>
+    )
+  }
+
+  <!-- PENE / PREPUCIO -->
+  {
+    name === "penis" && (
+      <svg viewBox="0 0 100 100">
+        <path d="M38 15v45c0 15 8 26 20 26 13 0 23-10 23-23V36" />
+        <path d="M38 29h43" />
+        <path d="M81 29c6 0 10 5 10 11s-4 11-10 11" />
+        <path d="M38 15c-7 0-12 5-12 12v18" />
+        <path d="M32 65c-8 3-13 10-13 19" />
+      </svg>
+    )
+  }
+
+</span>
+
+<style>
+  .medical-icon {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .medical-icon :global(svg) {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+</style>
