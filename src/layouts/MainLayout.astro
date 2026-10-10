@@ -7,23 +7,53 @@ interface Props {
 }
 
 const {
-  title = "Grupo Médico",
-  description = "Atención médica <span>especializada</span>",
+  title = "Pro Medical GDL | Especialidades Médicas",
+  description = "Atención médica especializada en Guadalajara. Conoce nuestros especialistas en Cirugía General, Traumatología y Ortopedia y Urología.",
 } = Astro.props;
+
+const siteUrl = "https://promedicalgdl.com";
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
+const ogImage = `${siteUrl}/images/og-promedical.png`;
 ---
 
 <!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1"
-    />
-
-    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta
+      property="og:image"
+      content="https://promedicalgdl.com/images/og-promedical.png"
+    />
+
+    <!-- URL canónica -->
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Pro Medical GDL" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Logo de Pro Medical GDL" />
+
+    <!-- X / Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
   </head>
 
   <body>
